@@ -1,0 +1,120 @@
+/* ============================================================
+   Henry's — Scroll-Triggered Reveal Effects
+   Driven by IntersectionObserver: elements get `.is-visible`.
+   Every effect respects prefers-reduced-motion (see bottom).
+   ============================================================ */
+
+[data-reveal] {
+  will-change: transform, opacity, filter;
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+/* (1) Fade-In-Up: translateY(40px) -> 0 */
+[data-reveal='fade-up'] {
+  opacity: 0;
+  transform: translateY(40px);
+  transition:
+    opacity 300ms ease-out,
+    transform 300ms ease-out;
+}
+
+[data-reveal='fade-up'].is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* (3) Scale-Reveal: 0.85 -> 1 */
+[data-reveal='scale'] {
+  opacity: 0;
+  transform: scale(0.85);
+  transition:
+    opacity 500ms var(--ease-out),
+    transform 500ms var(--ease-smooth);
+}
+
+[data-reveal='scale'].is-visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* (5) Blur-Fade: blur(10px) -> 0 */
+[data-reveal='blur'] {
+  opacity: 0;
+  filter: blur(10px);
+  transform: translateY(20px);
+  transition:
+    opacity 600ms ease-out,
+    filter 600ms ease-out,
+    transform 600ms ease-out;
+}
+
+[data-reveal='blur'].is-visible {
+  opacity: 1;
+  filter: blur(0);
+  transform: translateY(0);
+}
+
+/* (6) Clip-Path text reveal: inset(0 100% 0 0) -> inset(0 0 0 0) */
+[data-reveal='clip'] {
+  clip-path: inset(0 100% 0 0);
+  transition: clip-path 800ms var(--ease-out);
+}
+
+[data-reveal='clip'].is-visible {
+  clip-path: inset(0 0 0 0);
+}
+
+/* Simple fade */
+[data-reveal='fade'] {
+  opacity: 0;
+  transition: opacity 700ms ease-out;
+}
+
+[data-reveal='fade'].is-visible {
+  opacity: 1;
+}
+
+/* (2) Parallax layers — transforms applied by JS (useParallax / GSAP).
+   The wrapper only sets up the 3D context. */
+.parallax-scene {
+  perspective: 1000px;
+  transform-style: preserve-3d;
+}
+
+.parallax-layer {
+  will-change: transform;
+}
+
+/* (4) Skew on fast scroll — skew value driven by GSAP scroll velocity */
+[data-skew] {
+  will-change: transform;
+  transform-origin: center center;
+}
+
+/* Progressive backdrop blur entrance (Story ingredient cards) */
+.blur-entrance {
+  backdrop-filter: blur(0px);
+  -webkit-backdrop-filter: blur(0px);
+  transition: backdrop-filter 900ms ease, -webkit-backdrop-filter 900ms ease;
+}
+
+.blur-entrance.is-visible {
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+}
+
+/* ---------- Reduced motion: show everything, animate nothing ---------- */
+@media (prefers-reduced-motion: reduce) {
+  [data-reveal],
+  [data-reveal].is-visible {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    clip-path: none !important;
+    transition: none !important;
+  }
+
+  [data-skew] {
+    transform: none !important;
+  }
+}
