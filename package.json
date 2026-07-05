@@ -1,0 +1,27 @@
+{
+  "name": "henrys-deo-website",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Henry's — Fresh. Clean. You. Premium deodorant product website with interactive 3D and luxurious scroll effects.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@react-three/drei": "^9.114.3",
+    "@react-three/fiber": "^8.17.10",
+    "framer-motion": "^11.11.9",
+    "gsap": "^3.12.5",
+    "lottie-react": "^2.4.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-intersection-observer": "^9.13.1",
+    "three": "^0.169.0"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.3.3",
+    "vite": "^5.4.10"
+  }
+}
